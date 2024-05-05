@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Application</title>
+    <style>
+      label,
+      select,
+      button {
+        margin-top: 10px;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Create New Application</h1>
+    <form id="applicationForm">
+      <label for="applicantSelect">Applicant:</label>
+      <select id="applicantSelect" required>
+        <option value="">Select an Applicant</option>
+      </select>
+
+      <label for="companySelect">Company:</label>
+      <select id="companySelect" required>
+        <option value="">Select a Company</option>
+      </select>
+
+      <button type="submit">Submit Application</button>
+      <br />
+      <br />
+      <a href="/index.html">Back</a>
+      <a href="/applications.html">All Applications</a>
+    </form>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Load applicants
+        fetch("http://127.0.0.1:8080/api/applicants")
+          .then((response) => response.json())
+          .then((applicants) => {
+            const applicantSelect = document.getElementById("applicantSelect");
+            applicants.forEach((applicant) => {
+              let option = new Option(
+                applicant.firstName + " " + applicant.lastName,
+                applicant.id
+              );
+              applicantSelect.add(option);
+            });
+          })
+          .catch((error) => console.error("Failed to load applicants:", error));
+
+        // Load companies
+        fetch("http://127.0.0.1:8080/api/companies")
+          .then((response) => response.json())
+          .then((companies) => {
+            const companySelect = document.getElementById("companySelect");
+            companies.forEach((company) => {
+              let option = new Option(company.name, company.id);
+              companySelect.add(option);
+            });
+          })
+          .catch((error) => console.error("Failed to load companies:", error));
+
+        // Handle form submission
+        document.getElementById("applicationForm").onsubmit = function (event) {
+          event.preventDefault();
+          const applicantId = document.getElementById("applicantSelect").value;
+          const companyId = document.getElementById("companySelect").value;
+
+          const data = { applicantId: applicantId, companyId: companyId };
+
+          fetch("http://127.0.0.1:8080/api/applications", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          })
+            .then((response) => response.json())
+            .then((data) => alert("Application submitted successfully!"))
+            .catch((error) =>
+              console.error("Error submitting application:", error)
+            );
+        };
+      });
+    </script>
+  </body>
+</html>

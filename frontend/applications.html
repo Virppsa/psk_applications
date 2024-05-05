@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>List of Applications</title>
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Applications List</h1>
+    <table id="applicationsTable">
+      <thead>
+        <tr>
+          <th>Application ID</th>
+          <th>Applicant ID</th>
+          <th>Company ID</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <a href="/new_application.html">Create New Application</a>
+    <a href="/index.html">Back</a>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        fetch("http://127.0.0.1:8080/api/applications")
+          .then((response) => response.json())
+          .then((data) => {
+            const tableBody = document
+              .getElementById("applicationsTable")
+              .getElementsByTagName("tbody")[0];
+            data.forEach((application) => {
+              console.log(application);
+              const row = tableBody.insertRow();
+              row.insertCell(0).textContent = application.id;
+              row.insertCell(1).textContent =
+                application.applicant.firstName +
+                " " +
+                application.applicant.lastName;
+              row.insertCell(2).textContent = application.company.name;
+            });
+          })
+          .catch((error) => console.error("Error fetching data:", error));
+      });
+    </script>
+  </body>
+</html>

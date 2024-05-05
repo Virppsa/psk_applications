@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>List of Applicants</title>
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Applicants List</h1>
+    <table id="applicantsTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Data will be inserted here -->
+      </tbody>
+    </table>
+
+    <a href="/new_application.html">Create New Application</a>
+    <a href="/applications.html">All Applications</a>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        fetch("http://localhost:8080/api/applicants") // Change this URL to your actual API endpoint
+          .then((response) => response.json())
+          .then((data) => {
+            const tableBody = document
+              .getElementById("applicantsTable")
+              .getElementsByTagName("tbody")[0];
+            data.forEach((applicant) => {
+              const row = tableBody.insertRow();
+              row.insertCell(0).textContent = applicant.id;
+              row.insertCell(1).textContent = applicant.firstName;
+              row.insertCell(2).textContent = applicant.lastName;
+              row.insertCell(3).textContent = applicant.email;
+            });
+          })
+          .catch((error) => console.error("Error fetching data:", error));
+      });
+    </script>
+  </body>
+</html>
