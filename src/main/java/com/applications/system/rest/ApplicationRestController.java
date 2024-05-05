@@ -30,7 +30,6 @@ public class ApplicationRestController {
 
     @PostMapping("/applications")
     public Application addApplication(@RequestBody ApplicationDTO theApplicationDTO){
-
         return applicationService.save(theApplicationDTO);
     }
 

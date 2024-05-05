@@ -52,7 +52,6 @@ public class ApplicationDAOJpaImpl implements ApplicationDAO {
 
     @Override
     public Application save(ApplicationDTO applicationDTO) {
-        System.out.println(applicationDTO);
         Applicant applicant = entityManager.find(Applicant.class, applicationDTO.getApplicantId());
         Company company = entityManager.find(Company.class, applicationDTO.getCompanyId());
 
