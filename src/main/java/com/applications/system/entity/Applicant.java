@@ -11,8 +11,8 @@ public class Applicant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
-    private int id;
+    @Column(name="id") //Duombazėje stulpelio pav
+    private int id; //Klasė (json skaito pagal tai)
 
     @Column(name="first_name")
     private String firstName;
@@ -23,7 +23,7 @@ public class Applicant {
     @Column(name="email")
     private String email;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) //EAGER tam, kad kartu fecintu ir is joined table
     @JoinTable(
             name = "applicants_qualifications",
             joinColumns = @JoinColumn(name = "applicant_id"),

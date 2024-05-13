@@ -3,7 +3,9 @@ package com.applications.system.rest;
 import com.applications.system.dto.ApplicationDTO;
 import com.applications.system.entity.Application;
 import com.applications.system.service.ApplicationService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 

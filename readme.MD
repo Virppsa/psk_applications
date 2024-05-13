@@ -4,12 +4,27 @@ cd frontend
 http-server
 ```
 
-To Push changes to github:
+To Push changes to github main:
 ```
 git add .
 git commit -m "Commit name"
 git push origin main
 ```
+To push to branch:
+```
+git checkout -b name_of_branch
+git add .
+git commit -m "message that goes with new commit"
+git push origin name_of_branch
+```
+
+To switch to main branch and download latest version:
+```
+git checkout main
+git pull origin main
+```
+
+
 -----
 `Data Mapper:`
 

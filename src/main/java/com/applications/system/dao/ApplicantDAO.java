@@ -10,7 +10,11 @@ public interface ApplicantDAO {
 
     Applicant findById(int theId);
 
+    List<Applicant> findByName(String firstName);
+
     Applicant save(Applicant theApplicant);
 
     void delete(int theId);
+
+
 }

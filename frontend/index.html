@@ -51,7 +51,8 @@
               const row = tableBody.insertRow();
               row.insertCell(0).textContent = applicant.id;
               row.insertCell(1).textContent = applicant.firstName;
-              row.insertCell(2).textContent = applicant.lastName;
+              row.insertCell(2).textContent =
+                applicant.lastName + applicant.qualifications.length;
               row.insertCell(3).textContent = applicant.email;
             });
           })

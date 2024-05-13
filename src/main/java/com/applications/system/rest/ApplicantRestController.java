@@ -51,4 +51,10 @@ public class ApplicantRestController {
 
         return "User deleted succesfully";
     }
+
+
+    @GetMapping("/find_by_name/{firstName}")
+    public List<Applicant> findByName(@PathVariable String firstName){
+         return applicantService.findByName(firstName);
+    }
 }

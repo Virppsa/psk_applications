@@ -43,6 +43,19 @@ public class ApplicantDAOJpaImpl implements ApplicantDAO{
     }
 
     @Override
+    public List<Applicant> findByName(String firstName) {
+        TypedQuery<Applicant> theQuery = entityManager.createQuery("FROM Applicant WHERE firstName = :firstName", Applicant.class);
+
+        // Set the parameter value to the method's firstName parameter
+        theQuery.setParameter("firstName", firstName);
+        //Execute and get the result list
+        List<Applicant> applicants = theQuery.getResultList();
+
+        //return results
+        return applicants;
+    }
+
+    @Override
     public Applicant save(Applicant theApplicant) {
         if (theApplicant.getQualifications() != null) {
             Set<Qualification> managedQualifications = new HashSet<>();

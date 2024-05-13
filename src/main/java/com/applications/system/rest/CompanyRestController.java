@@ -19,4 +19,5 @@ public class CompanyRestController {
     public List<Company> findAll(){
         return companyService.findAll();
     }
+
 }

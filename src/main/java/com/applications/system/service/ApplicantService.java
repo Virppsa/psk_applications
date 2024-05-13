@@ -12,4 +12,6 @@ public interface ApplicantService {
     Applicant save(Applicant theApplicant);
 
     void delete(int theId);
+
+    List<Applicant> findByName(String firstName);
 }

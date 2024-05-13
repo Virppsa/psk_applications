@@ -1,5 +1,6 @@
 package com.applications.system.service;
 
+import com.applications.system.entity.Applicant;
 import com.applications.system.entity.ApplicantQualification;
 import com.applications.system.mapper.ApplicantQualificationsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +21,10 @@ public class ApplicantQualificationServiceImpl implements ApplicantQualification
     public List<ApplicantQualification> findAll() {
         return applicantQualificationsMapper.findAll();
     }
+
+//    @Override
+//    public List<Applicant> findByName(String firstName) {
+//        return applicantQualificationsMapper.;
+//    }
 
 }
