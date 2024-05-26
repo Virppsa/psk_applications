@@ -17,6 +17,12 @@ public class Company {
     @Column(name="description")
     private String description;
 
+    @Version
+    @Column(name = "LOCK_VERSION") //column name
+    private int version;
+
+
+
     public Company() {
     }
 
@@ -47,6 +53,14 @@ public class Company {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) { //šito negalima liesti :)
+        this.version = version;
     }
 
     @Override
