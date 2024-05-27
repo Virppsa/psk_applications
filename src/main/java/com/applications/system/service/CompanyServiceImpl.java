@@ -99,16 +99,17 @@ public class CompanyServiceImpl implements CompanyService{
 
     }
 
-
+    //OptimisticLock
     @Override
     @Transactional
     @Retryable(
-            value = {ObjectOptimisticLockingFailureException.class},
-            maxAttempts = 2,
-            backoff = @Backoff(delay = 10)
+            //Čia kaip try catch blokas
+            value = {ObjectOptimisticLockingFailureException.class}, //Pats exeption, tik jei bus
+            maxAttempts = 2, //Kiek kartu bandysim, iki kol padarys request (kad būtų exception - 2)
+            backoff = @Backoff(delay = 10) //mili sekundėmis delay tarp attempts ((kad būtų exception - 10mil)
     )
     public void editCompanyById(int theId){
-        System.out.println("Trying to retry");
+        System.out.println("Trying to edit");
         try {
             // Simulating a delay to increase the likelihood of a version conflict
             Thread.sleep(2000);

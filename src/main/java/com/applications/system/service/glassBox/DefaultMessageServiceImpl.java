@@ -9,13 +9,12 @@ import org.springframework.stereotype.Service;
 
 //@Alternative
 @Service
-@Primary // Vietoje @Primary (nes jo nera spring boote)
-//@Profile("scenario1") // Vietoje @Alternative
+@Primary // Vietoje @Specializes (nes jo nera spring boote)
+//@Profile("scenario1") // Vietoje @Alternative (nes jo nera spring boote)
 public class DefaultMessageServiceImpl implements AlternativeMessageService {
     @Override
     @LogExecutionTime //čia naudosime interceptorių
     public String getMessage(){
         return "Hello from scenario 1";
     }
-
 }

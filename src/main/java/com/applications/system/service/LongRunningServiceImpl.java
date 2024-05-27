@@ -11,6 +11,7 @@ import java.util.concurrent.CompletableFuture;
 public class LongRunningServiceImpl implements LongRunningService {
     @Async
     public CompletableFuture<String> performLongComputation() {
+        System.out.println("STARTING LONG RUNNING SERVICE -------------------");
         try {
             // Simuliuota komputacija su Thread.sleep
             Thread.sleep(5000);
@@ -18,6 +19,7 @@ public class LongRunningServiceImpl implements LongRunningService {
             Thread.currentThread().interrupt();
             return CompletableFuture.completedFuture("Interrupted");
         }
+        System.out.println("ENDING LONG RUNNING SERVICE -------------------");
         return CompletableFuture.completedFuture("Some computation result");
     }
 }

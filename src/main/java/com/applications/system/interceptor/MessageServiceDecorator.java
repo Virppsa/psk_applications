@@ -14,10 +14,13 @@ public class MessageServiceDecorator {
 
     private final DefaultMessageServiceImpl messageService;
 
+
+    //Dekoratoriai
     public MessageServiceDecorator(DefaultMessageServiceImpl messageService) {
         this.messageService = messageService;
     }
 
+    //Dekoratorius klauso kada bus įvykdytas message request
     @Before("execution(* com.applications.system.service.glassBox.DefaultMessageServiceImpl.getMessage(..))")
     public void decorate() {
         System.out.println("Decorator is applied --------------------------------------------");

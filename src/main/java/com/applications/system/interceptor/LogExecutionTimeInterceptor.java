@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 @Profile("interceptorEnabled")
 public class LogExecutionTimeInterceptor {
 
+    //Išprintina kiek laiko executina.
+    //Sukuriame savo anotaciją.
     @Around("@annotation(com.applications.system.interceptor.LogExecutionTime)")
     public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
         //Jis prasideda pries executinima request ar process betkokio ir paskai2iuoja laiką execution:

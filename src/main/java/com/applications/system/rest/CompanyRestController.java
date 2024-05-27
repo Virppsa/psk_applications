@@ -55,6 +55,8 @@ public class CompanyRestController {
     }
 
     // Sitas endpointas yra skirtas kad patestuoti optimistic lock.
+    //Vienu metu bandau įvykdyti du kartus iškviesti tą patį servisą vienu metu
+    //OptimisticLockExeption įvyksta nes vienu metu bandome editinti tą pačią kompaniją
     @PutMapping("/companies/test_optimistic_lock_exception")
     public String testConcurrentUpdate(@RequestParam int companyId) {
         Runnable task = () -> {
@@ -71,6 +73,7 @@ public class CompanyRestController {
         thread1.start();
         thread2.start();
 
+        //Jei threads dar eis ir aš išjungsiu programą, tai turi suhendlinti
         try {
             thread1.join();
             thread2.join();
@@ -82,13 +85,34 @@ public class CompanyRestController {
     }
 
     //2 punktas thread.sleep
+    //čia atlieka skaičiavimą
+    // Isijungia i tranzakcija
+    // jei norime laukti kol pasibaigs long running service
     @GetMapping("/start-calculation")
     public CompletableFuture<String> startCalculation() {
         return longRunningService.performLongComputation();
     }
 
+    // Jeigu norime nelaukti kada pasibaigs long running service
+    // Ne isijungia i tranzakcija
+//    @GetMapping("/start-calculation")
+//    public void startCalculation() {
+//        longRunningService.performLongComputation();
+//    }
+
+
+    //Čia bando panaudoti su entity manager
     @GetMapping("/companies/update-description-request-scoped")
+    //    Kadangi returniname CompletableFuture, todel endpointas laukia, kol performAsyncOperationWithEntityManager pasibaigs
+    //    ir todel request scoped siuo atveju veikia
     public CompletableFuture<Void> updateDescriptionRequestScoped(@RequestParam int companyId, @RequestParam String description) {
         return requestScopedCompanyService.performAsyncOperationWithEntityManager(companyId, description);
     }
+
+//    @GetMapping("/companies/update-description-request-scoped")
+//    public String updateDescriptionRequestScoped(@RequestParam int companyId, @RequestParam String description) {
+//        requestScopedCompanyService.performAsyncOperationWithEntityManager(companyId, description);
+//
+//        return "The task is running in background";
+//    }
 }
