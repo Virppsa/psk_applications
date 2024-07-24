@@ -8,7 +8,7 @@ This application is built using Java's Spring Boot framework and JavaScript's Re
 - **Frontend**: React (JavaScript)
 
 
-##Some git comands
+## Some git comands
 To run frontend:
 ```
 cd frontend
